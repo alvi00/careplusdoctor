@@ -135,8 +135,19 @@ export const updateAppointment = async ({
 
     if (!updatedAppointment) throw Error;
 
-    const smsMessage = `Greetings from CarePulse. ${type === "schedule" ? `Your appointment is confirmed for ${formatDateTime(appointment.schedule!, timeZone).dateTime} with Dr. ${appointment.primaryPhysician}` : `We regret to inform that your appointment for ${formatDateTime(appointment.schedule!, timeZone).dateTime} is cancelled. Reason:  ${appointment.cancellationReason}`}.`;
-    await sendSMSNotification(userId, smsMessage);
+    const baseUrl = "https://carepluscall.vercel.app/";
+    const roomCode = "Careplus"; // Replace with dynamic room code if needed
+    
+    const smsMessage = `Greetings from CarePulse. ${
+      type === "schedule"
+        ? `Your appointment is confirmed for ${
+            formatDateTime(appointment.schedule!, timeZone).dateTime
+          } with Dr. ${appointment.primaryPhysician}. Your joining link is ${baseUrl} and \n \n your room code is ${roomCode}.`
+        : `We regret to inform you that your appointment for ${
+            formatDateTime(appointment.schedule!, timeZone).dateTime
+          } is cancelled. Reason: ${appointment.cancellationReason}.`
+    }`;
+        await sendSMSNotification(userId, smsMessage);
 
     revalidatePath("/admin");
     return parseStringify(updatedAppointment);
