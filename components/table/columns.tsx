@@ -54,11 +54,11 @@ export const columns: ColumnDef<Appointment>[] = [
     header: "Doctor",
     cell: ({ row }) => {
       const appointment = row.original;
-
+  
       const doctor = Doctors.find(
         (doctor) => doctor.name === appointment.primaryPhysician
       );
-
+  
       return (
         <div className="flex items-center gap-3">
           <Image
@@ -68,7 +68,11 @@ export const columns: ColumnDef<Appointment>[] = [
             height={100}
             className="size-8"
           />
-          <p className="whitespace-nowrap">Dr. {doctor?.name}</p>
+          <div>
+            <p className="whitespace-nowrap">Dr. {doctor?.name}</p>
+            <p className="text-sm text-gray-500">{doctor?.specialty}</p>
+            <p className="text-sm text-gray-500">{doctor?.hospital}</p>
+          </div>
         </div>
       );
     },

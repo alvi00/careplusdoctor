@@ -149,20 +149,25 @@ export const AppointmentForm = ({
               label="Doctor"
               placeholder="Select a doctor"
             >
-              {Doctors.map((doctor, i) => (
-                <SelectItem key={doctor.name + i} value={doctor.name}>
-                  <div className="flex cursor-pointer items-center gap-2">
-                    <Image
-                      src={doctor.image}
-                      width={32}
-                      height={32}
-                      alt="doctor"
-                      className="rounded-full border border-dark-500"
-                    />
-                    <p>{doctor.name}</p>
-                  </div>
-                </SelectItem>
-              ))}
+{Doctors.map((doctor, i) => (
+  <SelectItem key={doctor.name + i} value={doctor.name}>
+    <div className="flex cursor-pointer items-center gap-2">
+      <Image
+        src={doctor.image}
+        width={32}
+        height={32}
+        alt="doctor"
+        className="rounded-full border border-dark-500"
+      />
+      <div>
+        <p>{doctor.name}</p>
+        <p className="text-xs text-gray-500">{doctor.specialty}</p>
+        <p className="text-xs text-gray-500">{doctor.hospital}</p>
+      </div>
+    </div>
+  </SelectItem>
+))}
+
             </CustomFormField>
 
             <CustomFormField
